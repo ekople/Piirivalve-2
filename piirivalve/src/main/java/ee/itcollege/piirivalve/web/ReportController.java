@@ -26,10 +26,17 @@ public class ReportController {
         return "report/index";
     }
 
-    @RequestMapping (params = "date", method = RequestMethod.GET)
+    @RequestMapping (params = "date, troops", method = RequestMethod.GET)
     public String findBorderSchedule(@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) Date date,
     						 @RequestParam("troops") Long id,
     						 Model uiModel) {
+
+    	if(date == null) {
+            return "report/index";
+    	}
+    	if(id == null) {
+            return "report/index";
+    	}
     	
     	List <Troops> troops = Troops.findAllTroopses();
        	uiModel.addAttribute("troops", troops);
