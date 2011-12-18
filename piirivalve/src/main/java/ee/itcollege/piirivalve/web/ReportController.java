@@ -23,6 +23,17 @@ public class ReportController {
     public String index(Model uiModel) {       
     	List <Troops> troops = Troops.findAllTroopses();
        	uiModel.addAttribute("troops", troops);
+       	List <Report> data = new ArrayList<Report>();
+       	List <Report> data2 = new ArrayList<Report>();
+       	for(Troops droop :troops)
+       	{
+       		data.add(Report.findAllSections(droop,new Date()));
+       		data2.add(Report.findAllPoints(droop,new Date()));
+       	}     	
+
+       	uiModel.addAttribute("data", data);
+       	uiModel.addAttribute("data2", data2); 
+       	
         return "report/index";
     }
 
