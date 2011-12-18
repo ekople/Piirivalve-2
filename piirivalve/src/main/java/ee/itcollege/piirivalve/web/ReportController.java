@@ -27,8 +27,8 @@ public class ReportController {
        	List <Report> data2 = new ArrayList<Report>();
        	for(Troops droop :troops)
        	{
-       		data.add(Report.findAllSections(droop,new Date()));
-       		data2.add(Report.findAllPoints(droop,new Date()));
+       		data.add(Report.findAllSections(droop,null));
+       		data2.add(Report.findAllPoints(droop,null));
        	}     	
 
        	uiModel.addAttribute("data", data);

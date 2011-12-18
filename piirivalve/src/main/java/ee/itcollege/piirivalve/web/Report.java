@@ -32,9 +32,14 @@ public class Report {
     @SuppressWarnings("unchecked")
 	public static Report findAllSections(Troops c, Date d) {
     	Query q = entityManager().createQuery("Select q.name, COUNT(g.name) FROM BorderSection AS q JOIN q.guard AS g" +
-    			" WHERE q.troops = :troops AND q.startdate <= :date AND q.enddate >= :date GROUP BY q.name");
+    			" WHERE q.troops = :troops " +
+    			(d != null ? "AND q.startdate <= :date AND q.enddate >= :date" : "") +
+    			" GROUP BY q.name");
     	q.setParameter("troops", c);
-    	q.setParameter("date", d);
+    	if(d != null)
+    	{
+    		q.setParameter("date", d);
+    	}
     	
     	return new Report(c, q.getResultList());
     }
@@ -42,9 +47,14 @@ public class Report {
     @SuppressWarnings("unchecked")
 	public static Report findAllPoints(Troops c, Date d) {
     	Query q = entityManager().createQuery("Select q.name, COUNT(g.name) FROM CrossingPoint AS q JOIN q.guard AS g" +
-    			" WHERE q.troops = :troops AND q.startdate <= :date AND q.enddate >= :date GROUP BY q.name");
+    			" WHERE q.troops = :troops "+
+    			(d!= null ? "AND q.startdate <= :date AND q.enddate >= :date" : "") +
+    			" GROUP BY q.name");
     	q.setParameter("troops", c);
-    	q.setParameter("date", d);
+    	if(d != null)
+    	{
+    		q.setParameter("date", d);
+    	}
     	
     	return new Report(c, q.getResultList());
     }
